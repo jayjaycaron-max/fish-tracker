@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaTrack | NE & QC Fish Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Oswald:wght@500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest-dark: #1a1f16;
+            --moss: #3e4a36;
+            --accent: #d4a373;
+            --water: #2a4d53;
+        }
+
+        body {
+            background-color: var(--forest-dark);
+            color: #e5e7eb;
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1, h2, .font-oswald {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #2d3428;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #5c7a4d, #a3b18a);
+            transition: width 0.5s ease-out;
+        }
+
+        .region-btn.active {
+            background-color: var(--accent);
+            color: var(--forest-dark);
+        }
+
+        .caught-checkbox:checked + label {
+            background-color: #5c7a4d;
+            border-color: #a3b18a;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--forest-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--moss); border-radius: 10px; }
+
+        .hidden-input { display: none; }
+
+        .fish-image-container {
+            position: relative;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .fish-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+
+        .card-details.open {
+            max-height: 500px;
+        }
+    </style>
+</head>
+<body class="pb-20">
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-[#1a1f16ee] backdrop-blur-md border-b border-white/10 py-4 px-6 mb-8">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <h1 class="text-3xl font-bold text-white flex items-center gap-2">
+                    <span class="text-[#d4a373]">AQUA</span>TRACK
+                </h1>
+                <p class="text-xs text-gray-400">NATIVE SPECIES LOG BOOK</p>
+            </div>
+
+            <div class="flex bg-[#2d3428] rounded-full p-1 border border-white/5">
+                <button onclick="switchRegion('ct')" id="btn-ct" class="region-btn px-6 py-2 rounded-full text-sm font-semibold transition-all active">CONNECTICUT</button>
+                <button onclick="switchRegion('qc')" id="btn-qc" class="region-btn px-6 py-2 rounded-full text-sm font-semibold transition-all">QUÉBEC</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Tracker -->
+    <div class="max-w-6xl mx-auto px-6 mb-12">
+        <div class="glass-card p-6 rounded-2xl">
+            <div class="flex justify-between items-end mb-2">
+                <div>
+                    <h2 class="text-lg text-gray-300" id="current-region-name">Connecticut Species</h2>
+                    <p class="text-3xl font-bold" id="stats-text">0 / 10 Caught</p>
+                </div>
+                <div class="text-right">
+                    <span class="text-4xl font-bold text-[#d4a373]" id="percentage">0%</span>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-6">
+        <div id="fish-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Fish Cards Injected Here -->
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
