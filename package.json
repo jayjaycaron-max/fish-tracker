@@ -1,0 +1,21 @@
+{
+  "name": "aquatrack-fish-tracker",
+  "version": "1.0.0",
+  "description": "A beautiful web app for tracking native fish species in Connecticut and Québec",
+  "main": "index.html",
+  "scripts": {
+    "start": "open index.html",
+    "dev": "python3 -m http.server 8000"
+  },
+  "keywords": [
+    "fishing",
+    "tracker",
+    "fish",
+    "connecticut",
+    "quebec",
+    "species"
+  ],
+  "author": "jayjaycaron-max",
+  "license": "MIT",
+  "devDependencies": {}
+}
